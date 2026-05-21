@@ -1,0 +1,3 @@
+#include? "tmp.xcconfig"
+APP_ENV=production
+PRODUCT_BUNDLE_IDENTIFIER=com.taskManagement.prod
