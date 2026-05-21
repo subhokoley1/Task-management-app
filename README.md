@@ -15,18 +15,18 @@ Cross-platform task management application built with **React Native 0.82**, **T
 
 ## Tech Stack
 
-| Area | Library |
-|------|---------|
-| Framework | React Native 0.82, TypeScript |
-| State | Redux Toolkit, React Redux |
-| Navigation | React Navigation 7 (native stack) |
-| Auth / Cloud | `@react-native-firebase/auth`, `firestore`, `messaging` |
-| Local DB | Realm |
-| Config | react-native-config |
-| Network | @react-native-community/netinfo |
-| Notifications | @notifee/react-native |
-| Forms | react-hook-form, zod |
-| UX | react-native-toast-message |
+| Area          | Library                                                 |
+| ------------- | ------------------------------------------------------- |
+| Framework     | React Native 0.82, TypeScript                           |
+| State         | Redux Toolkit, React Redux                              |
+| Navigation    | React Navigation 7 (native stack)                       |
+| Auth / Cloud  | `@react-native-firebase/auth`, `firestore`, `messaging` |
+| Local DB      | Realm                                                   |
+| Config        | react-native-config                                     |
+| Network       | @react-native-community/netinfo                         |
+| Notifications | @notifee/react-native                                   |
+| Forms         | react-hook-form, zod                                    |
+| UX            | react-native-toast-message                              |
 
 ## Project Structure
 
@@ -93,10 +93,10 @@ bash "${SRCROOT}/scripts/copy-firebase-config.sh"
 
 Create these locally (they are gitignored):
 
-| File | Purpose |
-|------|---------|
-| `.env.dev` | Development |
-| `.env.prod` | Production |
+| File        | Purpose     |
+| ----------- | ----------- |
+| `.env.dev`  | Development |
+| `.env.prod` | Production  |
 
 ```env
 APP_ENV=development
@@ -106,17 +106,17 @@ FIREBASE_ENV=dev
 
 ### Android package IDs
 
-| Flavor | Application ID |
-|--------|----------------|
-| dev | `com.taskManagementApp.dev` |
-| prod | `com.taskManagement.prod` |
+| Flavor | Application ID              |
+| ------ | --------------------------- |
+| dev    | `com.taskManagementApp.dev` |
+| prod   | `com.taskManagement.prod`   |
 
 ### iOS bundle IDs (xcconfig)
 
-| Scheme | Bundle ID |
-|--------|-----------|
-| Dev | `com.taskManagement.dev` |
-| Prod | `com.taskManagement.prod` |
+| Scheme | Bundle ID                 |
+| ------ | ------------------------- |
+| Dev    | `com.taskManagement.dev`  |
+| Prod   | `com.taskManagement.prod` |
 
 ## Installation
 
@@ -155,49 +155,19 @@ npm run ios:prod   # Scheme: Prod, ENVFILE=.env.prod
 
 ## Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run android:dev` | Dev flavor + `.env.dev` |
+| Script                 | Description               |
+| ---------------------- | ------------------------- |
+| `npm run android:dev`  | Dev flavor + `.env.dev`   |
 | `npm run android:prod` | Prod flavor + `.env.prod` |
-| `npm run ios:dev` | Dev scheme |
-| `npm run ios:prod` | Prod scheme |
-| `npm run lint` | ESLint |
-| `npm run format` | Prettier write |
-| `npm test` | Jest unit tests |
+| `npm run ios:dev`      | Dev scheme                |
+| `npm run ios:prod`     | Prod scheme               |
+| `npm run lint`         | ESLint                    |
+| `npm run format`       | Prettier write            |
+| `npm test`             | Jest unit tests           |
 
 ## Libraries Used
 
 See `package.json` for pinned versions. Core: Realm, Redux Toolkit, React Navigation, React Native Firebase, Notifee, NetInfo, Async Storage, react-native-config, react-hook-form, zod.
-
-## Troubleshooting (Windows)
-
-### `Error: -classpath requires class path specification`
-
-Fixed in this repo’s `android/gradlew.bat` (Gradle Windows bug with empty `CLASSPATH`). If you still see it:
-
-```bash
-cd android
-gradlew.bat --stop
-gradlew.bat clean
-cd ..
-npm run android:dev
-```
-
-### Build fails with “Unable to delete directory” (CMake / react-native-screens)
-
-A previous Gradle process may be locking files. Stop daemons, clean, then rebuild:
-
-```bash
-cd android && gradlew.bat --stop && gradlew.bat clean && cd ..
-npm run android:dev
-```
-
-For emulator-only dev builds (faster), use one ABI:
-
-```bash
-cd android
-gradlew.bat app:installDevDebug -PreactNativeArchitectures=x86_64
-```
 
 ## Known Limitations
 
