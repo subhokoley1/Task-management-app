@@ -7,6 +7,7 @@ import {useTheme} from '@/theme/ThemeContext';
 import {TabBarIcon} from '@/components/navigation/TabBarIcon';
 import {MyTasksStackNavigator} from './MyTasksStackNavigator';
 import {LazySettingsScreen} from './lazyScreens';
+import {getStatusBarOptions} from './headerOptions';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -33,6 +34,7 @@ export const MainTabNavigator: React.FC = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        ...getStatusBarOptions(isDark),
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarStyle: defaultTabBarStyle,

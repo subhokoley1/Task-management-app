@@ -1,6 +1,13 @@
 import type {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import type {ThemeColors} from '@/theme/colors';
 
+/** Status bar via react-native-screens (requires UIViewControllerBasedStatusBarAppearance=YES). */
+export const getStatusBarOptions = (isDark: boolean): NativeStackNavigationOptions => ({
+  statusBarTranslucent: true,
+  statusBarStyle: isDark ? 'light' : 'dark',
+  statusBarBackgroundColor: 'transparent',
+});
+
 export const getTransparentHeaderOptions = (
   colors: ThemeColors,
   isDark: boolean,
@@ -15,8 +22,6 @@ export const getTransparentHeaderOptions = (
     fontWeight: '600',
   },
   headerBackVisible: true,
-  statusBarTranslucent: true,
-  statusBarStyle: isDark ? 'light' : 'dark',
-  statusBarBackgroundColor: 'transparent',
+  ...getStatusBarOptions(isDark),
   navigationBarColor: colors.background,
 });

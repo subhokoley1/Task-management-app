@@ -22,6 +22,7 @@ export type MainTabParamList = {
 export type AppStackParamList = MyTasksStackParamList;
 
 export type RootStackParamList = {
+  Boot: undefined;
   Auth: undefined;
   App: undefined;
 };

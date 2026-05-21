@@ -4,8 +4,18 @@ import notifee, {
   TriggerType,
 } from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
+import {Platform} from 'react-native';
 import {NOTIFICATION_CHANNEL_ID} from '@/constants';
 import type {Task} from '@/types/task';
+
+async function ensureRegisteredForRemoteMessages(): Promise<void> {
+  if (Platform.OS !== 'ios') {
+    return;
+  }
+  if (!messaging().isDeviceRegisteredForRemoteMessages) {
+    await messaging().registerDeviceForRemoteMessages();
+  }
+}
 
 export const notificationService = {
   async initialize(): Promise<void> {
@@ -16,6 +26,7 @@ export const notificationService = {
       importance: AndroidImportance.HIGH,
     });
     await messaging().requestPermission();
+    await ensureRegisteredForRemoteMessages();
   },
 
   async scheduleTaskReminder(task: Task): Promise<void> {
@@ -73,13 +84,19 @@ export const notificationService = {
   },
 
   async getFcmToken(): Promise<string | null> {
-    const status = await messaging().hasPermission();
-    if (
-      status === AuthorizationStatus.DENIED ||
-      status === AuthorizationStatus.NOT_DETERMINED
-    ) {
+    try {
+      const status = await messaging().hasPermission();
+      if (
+        status === AuthorizationStatus.DENIED ||
+        status === AuthorizationStatus.NOT_DETERMINED
+      ) {
+        return null;
+      }
+      await ensureRegisteredForRemoteMessages();
+      return await messaging().getToken();
+    } catch (error) {
+      console.warn('[FCM] Unable to get device token:', error);
       return null;
     }
-    return messaging().getToken();
   },
 };

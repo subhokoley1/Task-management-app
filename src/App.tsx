@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {StatusBar} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
@@ -15,8 +14,6 @@ import {getRealm} from '@/database/realm';
 
 const AppBootstrap: React.FC = () => {
   const dispatch = useAppDispatch();
-  const {isDark, colors} = useTheme();
-
   useNetworkSync();
 
   useEffect(() => {
@@ -36,11 +33,6 @@ const AppBootstrap: React.FC = () => {
 
   return (
     <>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle={isDark ? 'light-content' : 'dark-content'}
-      />
       <RootNavigator />
       <Toast />
     </>
